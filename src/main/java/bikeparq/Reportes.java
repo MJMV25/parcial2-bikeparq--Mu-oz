@@ -1,27 +1,41 @@
 package bikeparq;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
-public class Reportes {
+/** Reportes de caja del día. */
+public final class Reportes {
 
-    public static Resumen resumenDelDia(List<Registro> l) {
-        int Total = 0, c = 0, m = 0;
-        for (int i = 0; i < l.size(); i++) {
-            Registro r = l.get(i);
-            if (r.tipo() == "carro") {
-                c++; Total += r.valor();
-            }
-            else if (r.tipo() == "moto") {
-                m++; Total += r.valor();
-            }
-        }
-        return new Resumen(Total, c, m);
+    private static final String CARRO = "carro";
+    private static final String MOTO = "moto";
+
+    private Reportes() {
     }
 
-    public static int mayorCobro(List<Registro> l) {
-        int x = 0;
-        for (Registro r : l) if (r.valor() > x) x = r.valor();
-        return x;
+    public static Resumen resumenDelDia(List<Registro> registros) {
+        int total = 0;
+        int carros = 0;
+        int motos = 0;
+        for (Registro registro : registros) {
+            boolean esCarro = CARRO.equals(registro.tipo());
+            boolean esMoto = MOTO.equals(registro.tipo());
+            if (esCarro) {
+                carros++;
+            }
+            if (esMoto) {
+                motos++;
+            }
+            if (esCarro || esMoto) {
+                total += registro.valor();
+            }
+        }
+        return new Resumen(total, carros, motos);
+    }
+
+    public static int mayorCobro(List<Registro> registros) {
+        int mayor = 0;
+        for (Registro registro : registros) {
+            mayor = Math.max(mayor, registro.valor());
+        }
+        return mayor;
     }
 }
