@@ -6,6 +6,9 @@ public final class Recargo {
     }
 
     public static int aplicarRecargoNocturno(int tarifa, int horaEntrada) {
+        if (tarifa == 0) {
+            return 0;
+        }
         if (horaEntrada >= 20 || horaEntrada <= 5) {
             return tarifa + 2000;
         }
