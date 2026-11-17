@@ -15,4 +15,34 @@ class RecargoTest {
 
         assertEquals(5000, total);
     }
+
+    @Test
+    void r1LimiteALas20EmpiezaLaNoche() {
+        assertEquals(5000, Recargo.aplicarRecargoNocturno(3000, 20));
+    }
+
+    @Test
+    void r1LimiteALas5TodaviaEsNoche() {
+        assertEquals(5000, Recargo.aplicarRecargoNocturno(3000, 5));
+    }
+
+    @Test
+    void r2EntradaALas10NoTieneRecargo() {
+        int tarifa = 3000;
+        int horaEntrada = 10;
+
+        int total = Recargo.aplicarRecargoNocturno(tarifa, horaEntrada);
+
+        assertEquals(3000, total);
+    }
+
+    @Test
+    void r2LimiteALas19TodaviaEsDia() {
+        assertEquals(3000, Recargo.aplicarRecargoNocturno(3000, 19));
+    }
+
+    @Test
+    void r2LimiteALas6EmpiezaElDia() {
+        assertEquals(3000, Recargo.aplicarRecargoNocturno(3000, 6));
+    }
 }
