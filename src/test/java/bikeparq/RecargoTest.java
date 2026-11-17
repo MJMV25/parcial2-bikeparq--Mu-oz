@@ -45,4 +45,14 @@ class RecargoTest {
     void r2LimiteALas6EmpiezaElDia() {
         assertEquals(3000, Recargo.aplicarRecargoNocturno(3000, 6));
     }
+
+    @Test
+    void r3TarifaCeroDeNocheNoTieneRecargo() {
+        int tarifa = 0;
+        int horaEntrada = 23;
+
+        int total = Recargo.aplicarRecargoNocturno(tarifa, horaEntrada);
+
+        assertEquals(0, total);
+    }
 }
